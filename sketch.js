@@ -26,7 +26,7 @@ function draw() {
   if (!gp) {
     fill(0);
     noStroke();
-    texSize(24);
+    textSize(24);
     text("Connect ur controller folkum n press a button", width/2, height/2);
     return;
   }
@@ -34,7 +34,7 @@ function draw() {
   //left joystick
   let deadzone = 0.15;//ignores tiny movements from the controller bc of stick drift
   let dx = abs(gp.axes[0]) > deadzone ? gp.axes[0] : 0;
-  let dy = abs(gp.axes[1]) > deadzone ? gp.axes[0] : 0;
+  let dy = abs(gp.axes[1]) > deadzone ? gp.axes[1] : 0;
   
   let speed = 8;
   px = x;
@@ -45,12 +45,12 @@ function draw() {
   y = constrain(y, 0, height);
   
   //rainbow mode
-  if (raindow) {
+  if (rainbow) {
     drawColor = color(random(255), random(255), random(255));
   }
-  stroke(drawCOlor);
+  stroke(drawColor);
   strokeWeight(brushSize);
-  line(px, px, x, y);
+  line(px, py, x, y);
   
   //triggers
   let leftTrigger = gp.buttons[6].value;
@@ -81,12 +81,12 @@ function handleButtons(gp) {
           background(240);
           break;
           
-          //X
+          //Y
         case 2:
           rainbow = !rainbow;
           break;
           
-          //Y
+          //X
         case 3:
           saveCanvas('etcha_gp', "png");
           break;
